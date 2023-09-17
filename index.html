@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Database Website</title>
+    <link href="src/assets/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <script type="text/x-template" id="grid-template">
+        <table>
+            <thead>
+            <tr>
+                <th v-for="key in columns"
+                    @click="sortBy(key)"
+                    :class="{ active: sortKey == key }">
+                    {{ capitalize(key) }}
+
+                    <span class="arrow" :class="sortColumns[key] > 0 ? 'asc' : 'dsc'">
+            </span>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr v-for="entry in filteredTitles">
+                <td v-for="key in columns">
+                    {{ entry[key] }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </script>
+
+</head>
+
+<body>
+<h1>Simple Database Website</h1>
+
+<div id="database-website">
+
+    <form id="search">
+
+        <p>Search: </p>
+
+        <input title="searchField" v-model="searchInput" />
+
+    </form>
+
+    <database-website-component
+            :entries="dataset"
+            :columns="dataColumns"
+            :filter-key="searchInput"
+    >
+    </database-website-component>
+</div>
+
+<script src="src/script.js">
+</script>
+</body>
+
+</html>
